@@ -1,14 +1,14 @@
 import { Card } from "@/components/ui/card";
-import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import { toast } from "sonner";
 
 const Settings = () => {
-  const [aiAccess, setAiAccess] = useState([50]);
+  const [aiAccess, setAiAccess] = useState(false);
 
-  const handleSliderChange = (value: number[]) => {
-    setAiAccess(value);
-    toast.success("AI access level updated");
+  const handleSwitchChange = (checked: boolean) => {
+    setAiAccess(checked);
+    toast.success(`AI access ${checked ? 'enabled' : 'disabled'}`);
   };
 
   return (
@@ -19,21 +19,17 @@ const Settings = () => {
         <div className="space-y-6">
           <div className="space-y-4">
             <h2 className="text-xl font-semibold text-brown">AI Access Control</h2>
-            <p className="text-brown/80">Adjust how much access AI has to your diary entries</p>
+            <p className="text-brown/80">Toggle AI access to your diary entries</p>
             
-            <div className="space-y-6">
-              <Slider
-                value={aiAccess}
-                onValueChange={handleSliderChange}
-                max={100}
-                step={1}
-                className="w-full"
+            <div className="flex items-center space-x-4">
+              <Switch
+                checked={aiAccess}
+                onCheckedChange={handleSwitchChange}
+                className="data-[state=checked]:bg-deep-red"
               />
-              <div className="flex justify-between text-sm text-brown/60">
-                <span>No Access</span>
-                <span>Limited Access</span>
-                <span>Full Access</span>
-              </div>
+              <span className="text-sm text-brown/60">
+                {aiAccess ? 'Full Access' : 'No Access'}
+              </span>
             </div>
           </div>
         </div>
