@@ -15,7 +15,8 @@ interface ChatMessage {
 interface SuggestedUser {
   id: string;
   name: string;
-  interests: string[];
+  concerns: string[];
+  commonality: string;
   lastActive: string;
 }
 
@@ -26,19 +27,22 @@ const Connect = () => {
     {
       id: '1',
       name: 'Sarah Mitchell',
-      interests: ['Anxiety Management', 'Meditation'],
+      concerns: ['Anxiety', 'Work Stress'],
+      commonality: 'Also dealing with workplace anxiety',
       lastActive: '2 mins ago'
     },
     {
       id: '2',
       name: 'James Wilson',
-      interests: ['Stress Relief', 'Work-Life Balance'],
+      concerns: ['Depression', 'Social Isolation'],
+      commonality: 'Similar experiences with social anxiety',
       lastActive: '5 mins ago'
     },
     {
       id: '3',
       name: 'Emma Thompson',
-      interests: ['Mental Wellness', 'Positive Thinking'],
+      concerns: ['Family Issues', 'Stress Management'],
+      commonality: 'Looking for support with family-related stress',
       lastActive: '15 mins ago'
     }
   ]);
@@ -64,7 +68,7 @@ const Connect = () => {
         <div className="col-span-3">
           <Card className="h-full bg-white/50 backdrop-blur-sm">
             <div className="p-4 border-b">
-              <h2 className="text-lg font-semibold text-brown">Suggested Connections</h2>
+              <h2 className="text-lg font-semibold text-brown">People You May Connect With</h2>
             </div>
             <ScrollArea className="h-[calc(100%-4rem)]">
               <div className="p-4 space-y-3">
@@ -74,13 +78,14 @@ const Connect = () => {
                     className="w-full p-4 text-left rounded-lg hover:bg-beige/20 transition-colors border border-beige/30"
                   >
                     <p className="font-medium text-brown">{user.name}</p>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {user.interests.map((interest, index) => (
+                    <p className="text-sm text-brown/80 mt-1">{user.commonality}</p>
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {user.concerns.map((concern, index) => (
                         <span
                           key={index}
                           className="text-xs px-2 py-1 bg-beige/30 rounded-full text-brown"
                         >
-                          {interest}
+                          {concern}
                         </span>
                       ))}
                     </div>
